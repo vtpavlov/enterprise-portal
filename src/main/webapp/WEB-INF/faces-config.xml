@@ -5,4 +5,22 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
 
+<managed-bean>
+	<managed-bean-name>user</managed-bean-name>
+	<managed-bean-class>com.vtpavlov.enterpriseportal.model.UserBean</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+	<managed-property>
+		<property-name>userRepository</property-name>
+		<value>#{dbUserRepository}</value>
+	</managed-property>
+	<managed-property>
+		<property-name>companyRoleRepository</property-name>
+		<value>#{dbCompanyRoleRepository}</value>
+	</managed-property>
+	<managed-property>
+		<property-name>pageRepository</property-name>
+		<value>#{dbPageRepository}</value>
+	</managed-property>
+</managed-bean>
+
 </faces-config>

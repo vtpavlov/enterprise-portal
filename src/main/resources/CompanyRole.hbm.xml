@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" 
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.vtpavlov.enterpriseportal.dto.CompanyRole"
+		table="CompanyRoles">
+		<meta attribute="class-description">This class contains the roles in a company.</meta>
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		<property name="companyRole" column="company_role" type="string" />
+	</class>
+</hibernate-mapping>

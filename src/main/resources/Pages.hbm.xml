@@ -4,8 +4,7 @@
 	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.vtpavlov.enterpriseportal.dto.Page"
-		table="Pages">
+	<class name="com.vtpavlov.enterpriseportal.dto.Page" table="Pages">
 		<meta attribute="class-description">This class represent web page created by users.</meta>
 		<id name="id" type="int" column="id">
 			<generator class="native" />
@@ -15,7 +14,10 @@
 		<property name="description" column="description" type="string" />
 		<set name="allowedRoles" cascade="save-update" table="PAGES_ROLES">
 			<key column="page_id" />
-			<many-to-many column="role_id" class="com.vtpavlov.enterpriseportal.dto.CompanyRole"/>
+			<many-to-many column="role_id"
+				class="com.vtpavlov.enterpriseportal.dto.CompanyRole" />
 		</set>
+		<many-to-one name="owner" column="owner"
+			class="com.vtpavlov.enterpriseportal.dto.User" not-null="true"></many-to-one>
 	</class>
 </hibernate-mapping>

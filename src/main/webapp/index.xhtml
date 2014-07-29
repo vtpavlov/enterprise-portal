@@ -5,17 +5,24 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="templates/main-template.xhtml">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
+<ui:composition template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="navigation">
+		<li>
+			<h:link value="Login" outcome="login"></h:link>
+		</li>
+		<li>
+			<h:link value="Register" outcome="register"></h:link>
+		</li>
 	</ui:define>
 	<ui:define name="content">
-		<h:form>
-			<h:commandButton value="Save to db" action="#{user.save}"></h:commandButton>
-		</h:form>
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
+		<p>This is project created by Veselin Pavlov with educational purpose.</p>
+		<p>It represents an enterprise portal system.</p>
+		<p>In order to use the system you need to 
+			<h:link value="log in" outcome="login"></h:link>
+			or
+			<h:link value="register" outcome="register"></h:link>
+			.
+		</p>
 	</ui:define>
 </ui:composition>
 </html>

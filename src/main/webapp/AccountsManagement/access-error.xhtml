@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../WEB-INF/templates/main-template.xhtml">
+	<ui:define name="navigation">
+		<li><h:link value="Login" outcome="login"></h:link></li>
+		<li><h:link value="Register" outcome="register"></h:link></li>
+	</ui:define>
+	<ui:define name="content">
+		<h1>Access denied!</h1>
+		<hr />
+
+		<p>Your account doesn't have access to that resource.</p>
+		<p>You have to use another account.</p>
+		<p>
+			In order to use the system you need to
+			<h:link value="log in" outcome="login"></h:link>
+			with another account or
+			<h:link value="register" outcome="register"></h:link>
+			another account.
+		</p>
+	</ui:define>
+</ui:composition>
+</html>

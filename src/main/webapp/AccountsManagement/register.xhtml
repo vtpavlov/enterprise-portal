@@ -5,15 +5,67 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="../templates/main-template.xhtml">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
+<ui:composition template="../WEB-INF/templates/main-template.xhtml">
+	<ui:define name="navigation">
+		<li><h:link value="Home" outcome="welcome"></h:link></li>
+		<li><h:link value="Login" outcome="login"></h:link></li>
 	</ui:define>
 	<ui:define name="content">
-	    Add your content here or delete to use the default
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
+		<h1>Registration</h1>
+		<hr />
+		<h:form>
+			<table>
+				<tr>
+					<td><h:outputLabel for="username" value="Username: "></h:outputLabel>
+					</td>
+					<td><h:inputText id="username"
+							value="#{registerBean.username}"></h:inputText></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel for="password" value="Password: "></h:outputLabel>
+					</td>
+					<td><h:inputSecret id="password"
+							value="#{registerBean.password}"></h:inputSecret></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel for="email" value="Email: "></h:outputLabel>
+					</td>
+					<td><h:inputText id="email" value="#{registerBean.email}"></h:inputText>
+					</td>
+				</tr>
+
+				<tr>
+					<td><h:outputLabel for="fname" value="First Name: "></h:outputLabel>
+					</td>
+					<td><h:inputText id="fname" value="#{registerBean.firstName}"></h:inputText></td>
+				</tr>
+
+				<tr>
+					<td><h:outputLabel for="lname" value="Last Name: "></h:outputLabel>
+					</td>
+					<td><h:inputText id="lname" value="#{registerBean.lastName}"></h:inputText></td>
+				</tr>
+
+				<tr>
+					<td><h:outputLabel value="Position: "></h:outputLabel>
+					</td>
+					<td>
+						<h:selectOneRadio value="#{registerBean.role}" layout="pageDirection" >
+							<f:selectItem itemValue="1" itemLabel="Junior" />
+							<f:selectItem itemValue="2" itemLabel="Senior" />
+							<f:selectItem itemValue="3" itemLabel="Team Leader" />
+							<f:selectItem itemValue="4" itemLabel="Project Leader" />
+							<f:selectItem itemValue="5" itemLabel="Project Manager" />							
+						</h:selectOneRadio>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><h:commandButton value="Register"
+							action="#{registerBean.register}"></h:commandButton></td>
+				</tr>
+			</table>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

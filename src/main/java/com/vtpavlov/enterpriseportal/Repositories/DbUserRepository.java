@@ -1,36 +1,18 @@
 package com.vtpavlov.enterpriseportal.Repositories;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.NoneScoped;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 import com.vtpavlov.enterpriseportal.dto.User;
 
-@ManagedBean
-@NoneScoped
 public class DbUserRepository implements IRepository<User> {
-	private static SessionFactory sessionFactory;
-	private static ServiceRegistry serviceRegistry;
-
-	public static void createSessionFactory() {
-		Configuration configuration = new Configuration();
-		configuration.configure();
-		
-		serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
-				configuration.getProperties()).build();
-		
-		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-	}
 
 	public DbUserRepository() {
-		createSessionFactory();
 	}
 
 	@Override
@@ -39,7 +21,7 @@ public class DbUserRepository implements IRepository<User> {
 		Transaction tx = null;
 
 		try {
-			session = sessionFactory.openSession();
+			session = SessionFactoryInstance.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			session.save(item);
 			tx.commit();
@@ -56,33 +38,123 @@ public class DbUserRepository implements IRepository<User> {
 	}
 
 	@Override
-	public User update(int id, User item) {
-		// TODO Auto-generated method stub
-		return null;
+	public User update(String id, User item) {
+		Session session = null;
+		Transaction tx = null;
+		User user = null;
+		try {
+			session = SessionFactoryInstance.getSessionFactory().openSession();
+			tx = session.beginTransaction();
+			user = (User) session.get(User.class, id);
+			user.setEmail(item.getEmail());
+			user.setPassword(item.getPassword());
+			user.setRoles(item.getRoles());
+			user.setUsername(item.getUsername());
+			session.update(user);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return user;
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void delete(String id) {
+		Session session = null;
+		Transaction tx = null;
 
+		try {
+			session = SessionFactoryInstance.getSessionFactory().openSession();
+			tx = session.beginTransaction();
+			User user = (User) session.get(User.class, id);
+			session.delete(user);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 	}
 
 	@Override
 	public void delete(User item) {
-		// TODO Auto-generated method stub
+		Session session = null;
+		Transaction tx = null;
 
+		try {
+			session = SessionFactoryInstance.getSessionFactory().openSession();
+			tx = session.beginTransaction();
+			session.delete(item);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 	}
 
 	@Override
-	public User get(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public User get(String id) {
+		Session session = null;
+		Transaction tx = null;
+		User user = null;
+		try {
+			session = SessionFactoryInstance.getSessionFactory().openSession();
+			tx = session.beginTransaction();
+			user = (User) session.get(User.class, id);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return user;
 	}
 
 	@Override
-	public Iterable<User> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> getAll() {
+		Session session = null;
+		Transaction tx = null;
+		List<User> users = null;
+		try {
+			session = SessionFactoryInstance.getSessionFactory().openSession();
+			tx = session.beginTransaction();
+			users = castList(User.class, session.createQuery("FROM User")
+					.list());
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return users;
 	}
 
+	private static <T> List<T> castList(Class<? extends T> clazz,
+			Collection<?> c) {
+		List<T> r = new ArrayList<T>(c.size());
+		for (Object o : c)
+			r.add(clazz.cast(o));
+		return r;
+	}
 }

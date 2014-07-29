@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14061403164860" configfile="/EnterprisePortal/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14061403164860" configfile="/EnterprisePortal/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="index.jsf" x="122" y="562" id="pf14064643815820" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14064643815821 pf14064722727883 pf14064734380320" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="AccountsManagement/login.jsf" x="338" y="178" id="pf14064643815822" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf14065550427840 pf14065550427841" inlinks="pf14064643815821 pf14065806233002 pf14065809243345 pf14065816954139" path="/AccountsManagement/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="protected/welcome.xhtml" x="338" y="562" id="pf14064722727884" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf14064722727883 pf14064776201960 pf14065550427840" path="/protected/welcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="AccountsManagement/register.xhtml" x="338" y="946" id="pf14064734380321" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf14064776201960 pf14065809243345" inlinks="pf14064734380320 pf14065550427841 pf14065806233003 pf140658169541310" path="/AccountsManagement/register.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="AccountsManagement/login-.xhtml" id="pf14065806233004" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf14065806233002 pf14065806233003" path="/AccountsManagement/login-error.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Pages/view-pages.xhtml" id="pf14065809243346" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf14065809243347" path="/Pages/view-pages.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Pages/view-single-page.xhtml" id="pf14065809243348" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf14065809243347" path="/Pages/view-single-page.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="AccountsManagement/a-error.xhtml" id="pf140658169541311" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf140658169541310 pf14065816954139" path="/AccountsManagement/access-error.xhtml"/>
+  <links id="pf14064643815821" target="pf14064643815822" source="pf14064643815820" outcome="login"/>
+  <links id="pf14064722727883" target="pf14064722727884" source="pf14064643815820" outcome="welcome"/>
+  <links id="pf14064734380320" target="pf14064734380321" source="pf14064643815820" outcome="register"/>
+  <links id="pf14064776201960" target="pf14064722727884" source="pf14064734380321" outcome="welcome" redirect="true"/>
+  <links id="pf14065550427840" target="pf14064722727884" source="pf14064643815822" outcome="welcome"/>
+  <links id="pf14065550427841" target="pf14064734380321" source="pf14064643815822" outcome="register"/>
+  <links id="pf14065806233002" target="pf14064643815822" source="pf14065806233004" outcome="login"/>
+  <links id="pf14065806233003" target="pf14064734380321" source="pf14065806233004" outcome="register"/>
+  <links id="pf14065809243345" target="pf14064643815822" source="pf14064734380321" outcome="login"/>
+  <links id="pf14065809243347" target="pf14065809243348" source="pf14065809243346" outcome="view-single-page"/>
+  <links id="pf140658169541310" target="pf14064734380321" source="pf140658169541311" outcome="register"/>
+  <links id="pf14065816954139" target="pf14064643815822" source="pf140658169541311" outcome="login"/>
+</pageflow:Pageflow>

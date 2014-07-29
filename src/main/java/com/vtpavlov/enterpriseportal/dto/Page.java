@@ -7,7 +7,10 @@ public class Page {
 	private String filePath;
 	private String title;
 	private String description;
+	private User owner;
 	private Set<CompanyRole> allowedRoles;
+	
+	public Page() {}
 	
 	public Page(String filePath, String title, String description) {
 		super();
@@ -46,4 +49,13 @@ public class Page {
 	public void setAllowedRoles(Set<CompanyRole> allowedRoles) {
 		this.allowedRoles = allowedRoles;
 	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+	
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../WEB-INF/templates/main-template.xhtml">	
+	<ui:define name="navigation">
+		<li><h:link value="Login" outcome="login"></h:link></li>
+		<li><h:link value="Register" outcome="register"></h:link></li>
+	</ui:define>
+	<ui:define name="content">
+		<h1>Login failed!</h1>
+		<hr />
+		
+		<p>There has been a problem with your login information.</p>
+		<p>You have entered wrong username or password.</p>
+		<p>In order to use the system you need to 
+			<h:link value="log in" outcome="login"></h:link>
+			or
+			<h:link value="register" outcome="register"></h:link>
+			.
+		</p>
+	</ui:define>
+</ui:composition>
+</html>

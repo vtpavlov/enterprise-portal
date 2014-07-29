@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE 
+glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" 
+"http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
+<glassfish-web-app error-url="">
+
+	<security-role-mapping>
+		<role-name>JUNIOR</role-name>
+		<group-name>JUNIOR</group-name>
+	</security-role-mapping>
+
+	<security-role-mapping>
+		<role-name>SENIOR</role-name>
+		<group-name>SENIOR</group-name>
+	</security-role-mapping>
+
+	<security-role-mapping>
+		<role-name>TEAMLEADER</role-name>
+		<group-name>TEAMLEADER</group-name>
+	</security-role-mapping>
+
+	<security-role-mapping>
+		<role-name>PROJECTLEADER</role-name>
+		<group-name>PROJECTLEADER</group-name>
+	</security-role-mapping>
+
+	<security-role-mapping>
+		<role-name>PROJECTMANAGER</role-name>
+		<group-name>PROJECTMANAGER</group-name>
+	</security-role-mapping>
+
+</glassfish-web-app>

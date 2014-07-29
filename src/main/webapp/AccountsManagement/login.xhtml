@@ -3,17 +3,104 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="../templates/main-template.xhtml">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
+<ui:composition template="../WEB-INF/templates/main-template.xhtml">
+	<ui:define name="scripts">
+		<script
+			src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+		</script>
+		<script type="text/javascript">
+			(function() {
+				var po = document.createElement('script');
+				po.type = 'text/javascript';
+				po.async = true;
+				po.src = 'https://plus.google.com/js/client:plusone.js?onload=start';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(po, s);
+			})();
+
+			function signInCallback(authResult) {
+				  if (authResult['code']) {
+					login([{name:'code', value: authResult['code']}]);
+					//document.getElementById("hiddencode").setAttribute("value", authResult['code']);  
+				  	//document.getElementById("myForm").submit();
+				    // Hide the sign-in button now that the user is authorized, for example:
+				    $('#signinButton').attr('style', 'display: none');
+
+ 				    // Send the code to the server
+				    $.ajax({
+				      type: 'POST',
+				      url: 'plus.php?storeToken',
+				      contentType: 'application/octet-stream; charset=utf-8',
+				      success: function(result) {
+				        // Handle or verify the server response if necessary.
+
+				        // Prints the list of people that the user has allowed the app to know
+				        // to the console.
+				        console.log(result);
+				        if (result['profile'] &amp;&amp; result['people']){
+				          $('#results').html('Hello ' + result['profile']['displayName'] + '. You successfully made a server side call to people.get and people.list');
+				        } else {
+				          $('#results').html('Failed to make a server-side call. Check your configuration and console.');
+				        }
+				      },
+				      processData: false,
+				      data: authResult['code']
+				    }); 
+				  } else if (authResult['error']) {
+				    // There was an error.
+				    // Possible error codes:
+				    //   "access_denied" - User denied access to your app
+				    //   "immediate_failed" - Could not automatially log in the user
+				     console.log('There was an error: ' + authResult['error']);
+				  }
+				}
+
+		</script>
+
+	</ui:define>
+	<ui:define name="navigation">
+		<li><h:link value="Home" outcome="welcome"></h:link></li>
+		<li><h:link value="Register" outcome="register"></h:link></li>
 	</ui:define>
 	<ui:define name="content">
-	    <!-- ToDo labels and input texts for entering username and password -->
+		<h1>Log In</h1>
+		<hr />
+		<form action="j_security_check" method="post">
+			<table border="1">
+				<tr>
+					<td><label for="username">Username:</label></td>
+					<td><input id="username" type="text" name="j_username" /></td>
+				</tr>
+				<tr>
+					<td><label for="password">Password:</label></td>
+					<td><input id="password" type="password" name="j_password" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="Login" /></td>
+				</tr>
+			</table>
+		</form>
+
+
+		<div id="signinButton">
+			<span class="g-signin"
+				data-scope="https://www.googleapis.com/auth/plus.login"
+				data-clientid="434671265291-ehat14ivagghg9b9gv035cv4os45vur6.apps.googleusercontent.com"
+				data-redirecturi="postmessage" data-accesstype="offline"
+				data-cookiepolicy="single_host_origin"
+				data-callback="signInCallback"> </span>
+		</div>
+		<div id="results"></div>
+		
+		<h:form>
+			<p:remoteCommand name="login" actionListener="#{googleLoginBean.login}"></p:remoteCommand>
+		</h:form>
+		
 	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
-	</ui:define>
+
 </ui:composition>
 </html>

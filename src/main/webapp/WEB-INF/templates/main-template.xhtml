@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<ui:insert name="scripts">
+	</ui:insert>
+	<ui:insert name="title">
+		<title>Enterprise Portal</title>
+	</ui:insert>
+	<link href="#{request.contextPath}/css/styles.css" rel="stylesheet"
+		type="text/css" />
+</h:head>
+
+<h:body>
+	<header>
+		<div class="container">
+			<h1>Enterprise Portal</h1>
+			<h2>Soft Solutions</h2>
+		</div>
+		<nav>
+			<ul>
+				<ui:insert name="navigation">
+				</ui:insert>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="container">
+		<section class="content">
+			<ui:insert name="content">
+			</ui:insert>
+		</section>
+
+		<footer>
+			<div class="container heading">
+                <h1>Enterprise Portal</h1>
+            </div>
+            <div class="container">
+                <p>Soft Solutions 2014</p>
+            </div>
+		</footer>
+	</div>
+</h:body>
+</html>

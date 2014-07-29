@@ -7,9 +7,7 @@
 	<class name="com.vtpavlov.enterpriseportal.dto.CompanyRole"
 		table="CompanyRoles">
 		<meta attribute="class-description">This class contains the roles in a company.</meta>
-		<id name="id" type="int" column="id">
-			<generator class="native" />
+		<id name="companyRole" type="string" column="company_role">
 		</id>
-		<property name="companyRole" column="company_role" type="string" />
 	</class>
 </hibernate-mapping>

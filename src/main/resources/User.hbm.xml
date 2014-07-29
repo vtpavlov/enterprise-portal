@@ -6,14 +6,18 @@
 <hibernate-mapping>
 	<class name="com.vtpavlov.enterpriseportal.dto.User" table="Users">
 		<meta attribute="class-description">This class contains the user details.</meta>
-		<id name="id" type="int" column="id">
-			<generator class="native" />
+		<id name="username" type="string" column="username">
 		</id>
 
-		<property name="username" column="username" type="string" />
 		<property name="password" column="password" type="string" />
 		<property name="email" column="email" type="string" />
-		<many-to-one name="role" column="companyRole"
-		class="com.vtpavlov.enterpriseportal.dto.CompanyRole" not-null="true"/>
+		<property name="firstName" column="first_name" type="string" />
+		<property name="lastName" column="last_name" type="string" />
+		
+		<set name="roles" cascade="save-update" table="USERS_ROLES">
+			<key column="user_id" />
+			<many-to-many column="role_id"
+				class="com.vtpavlov.enterpriseportal.dto.CompanyRole" />
+		</set>
 	</class>
 </hibernate-mapping>

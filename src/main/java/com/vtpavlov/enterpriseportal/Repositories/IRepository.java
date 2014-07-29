@@ -1,10 +1,12 @@
 package com.vtpavlov.enterpriseportal.Repositories;
 
+import java.util.List;
+
 public interface IRepository<T> {
 	T add(T item);
-	T update(int id, T item);
-	void delete(int id);
+	T update(String id, T item);
+	void delete(String id);
 	void delete(T item);
-	T get(int id);
-	Iterable<T> getAll();
+	T get(String id);
+	List<T> getAll();
 }

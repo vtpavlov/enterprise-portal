@@ -1,26 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-    version="2.2">
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
 
-<managed-bean>
-	<managed-bean-name>user</managed-bean-name>
-	<managed-bean-class>com.vtpavlov.enterpriseportal.model.UserBean</managed-bean-class>
-	<managed-bean-scope>session</managed-bean-scope>
-	<managed-property>
-		<property-name>userRepository</property-name>
-		<value>#{dbUserRepository}</value>
-	</managed-property>
-	<managed-property>
-		<property-name>companyRoleRepository</property-name>
-		<value>#{dbCompanyRoleRepository}</value>
-	</managed-property>
-	<managed-property>
-		<property-name>pageRepository</property-name>
-		<value>#{dbPageRepository}</value>
-	</managed-property>
-</managed-bean>
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+	</application>
 
+	<managed-bean>
+		<managed-bean-name>registerBean</managed-bean-name>
+		<managed-bean-class>com.vtpavlov.enterpriseportal.model.AccountsManagement.RegisterBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>usersRepository</property-name>
+			<value>#{userRepository}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>rolesRepository</property-name>
+			<value>#{roleRepository}</value>
+		</managed-property>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>creatingPageBean</managed-bean-name>
+		<managed-bean-class>com.vtpavlov.enterpriseportal.model.Pages.CreatingPageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>userRepository</property-name>
+			<value>#{userRepository}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>roleRepository</property-name>
+			<value>#{roleRepository}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>pageRepository</property-name>
+			<value>#{pageRepository}</value>
+		</managed-property>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>listingPagesBean</managed-bean-name>
+		<managed-bean-class>com.vtpavlov.enterpriseportal.model.Pages.ListingPagesBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+
+		<managed-property>
+			<property-name>pageRepository</property-name>
+			<value>#{pageRepository}</value>
+		</managed-property>
+	</managed-bean>
+
+	<!-- Navigations for index.xhtml page -->
+	<navigation-rule>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/AccountsManagement/login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/AccountsManagement/register.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>welcome</from-outcome>
+			<to-view-id>/protected/welcome.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- Navigations for register.xhtml page -->
+	<navigation-rule>
+		<from-view-id>/AccountsManagement/register.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>welcome</from-outcome>
+			<to-view-id>/protected/welcome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/AccountsManagement/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Navigations for login.xhtml page -->
+	<navigation-rule>
+		<from-view-id>/AccountsManagement/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>welcome</from-outcome>
+			<to-view-id>/protected/welcome.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/AccountsManagement/register.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- Navigations for login-error.xhtml page -->
+	<navigation-rule>
+		<from-view-id>/AccountsManagement/login-error.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/AccountsManagement/register.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/AccountsManagement/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Navigations for access-error.xhtml page -->
+	<navigation-rule>
+		<from-view-id>/AccountsManagement/access-error.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/AccountsManagement/register.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/AccountsManagement/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Navigations for view-pages.xhtml page -->
+	<navigation-rule>
+		<from-view-id>/Pages/view-pages.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>view-single-page</from-outcome>
+			<to-view-id>/Pages/view-single-page.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

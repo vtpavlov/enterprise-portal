@@ -6,23 +6,75 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/WEB-INF/templates/main-template.xhtml">
+	<ui:define name="scripts">
+		<script
+			src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+		</script>
+		<script type="text/javascript">
+			(function() {
+				var po = document.createElement('script');
+				po.type = 'text/javascript';
+				po.async = true;
+				po.src = 'https://plus.google.com/js/client:plusone.js?onload=start';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(po, s);
+			})();
+
+			function signInCallback(authResult) {
+				if (authResult['code']) {
+					$('#signinButton').attr('style', 'display: none');
+					// Send the code to the server
+					$.ajax({
+						type : 'POST',
+						url : 'googlelogin?storeToken',
+						contentType : 'application/octet-stream; charset=utf-8',
+						success : function(result) {
+							// Handle or verify the server response if necessary.									
+							if (result['displayName']) {
+								location.reload();
+								$('#results').html('Hello ' + result['displayName'] + '. You successfully logged in.');
+							} else {
+								$('#results').html('Failed to make a server-side call. Check your configuration and console.');
+							}
+						},
+						processData : false,
+						data : authResult['code']
+					});
+				} else if (authResult['error']) {
+					console.log('There was an error with your logging.');
+				}
+			}
+		</script>
+	</ui:define>
+
 	<ui:define name="navigation">
-		<li>
-			<h:link value="Login" outcome="login"></h:link>
-		</li>
-		<li>
-			<h:link value="Register" outcome="register"></h:link>
-		</li>
+		<li><h:link value="Login" outcome="login"></h:link></li>
+		<li><h:link value="Register" outcome="register"></h:link></li>
 	</ui:define>
 	<ui:define name="content">
-		<p>This is project created by Veselin Pavlov with educational purpose.</p>
+		<p>This is project created by Veselin Pavlov with educational
+			purpose.</p>
 		<p>It represents an enterprise portal system.</p>
-		<p>In order to use the system you need to 
+		<p>
+			In order to use the system you need to
 			<h:link value="log in" outcome="login"></h:link>
 			or
 			<h:link value="register" outcome="register"></h:link>
 			.
 		</p>
+
+		<p>Also you can use your google account to log into the system.</p>
+
+		<div id="signinButton">
+			<span class="g-signin"
+				data-scope="https://www.googleapis.com/auth/plus.login"
+				data-clientid="434671265291-ehat14ivagghg9b9gv035cv4os45vur6.apps.googleusercontent.com"
+				data-redirecturi="postmessage" data-accesstype="offline"
+				data-cookiepolicy="single_host_origin"
+				data-callback="signInCallback"> </span>
+		</div>
+		<div id="results"></div>
+
 	</ui:define>
 </ui:composition>
 </html>

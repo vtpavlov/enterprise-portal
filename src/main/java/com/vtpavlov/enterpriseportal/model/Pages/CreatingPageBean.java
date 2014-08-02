@@ -61,7 +61,6 @@ public class CreatingPageBean implements Serializable{
 		try (PrintStream pageWriter = new PrintStream(filePath)) {			
 			pageWriter.print(text);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

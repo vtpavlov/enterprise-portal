@@ -33,7 +33,6 @@ public class ViewingPageBean implements Serializable{
 				pageContent.append(fileReader.nextLine());
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.text = pageContent.toString();
